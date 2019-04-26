@@ -1,4 +1,4 @@
-package com.example.jiancheng.http_test;
+package com.example.jiancheng.http_test.View.Latest_news;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,6 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.jiancheng.http_test.Data.Item;
+import com.example.jiancheng.http_test.R;
+import com.example.jiancheng.http_test.setOnitem;
 
 import java.util.List;
 
@@ -16,7 +20,7 @@ import java.util.List;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> implements  View.OnClickListener {
 
     private List<Item> items;
-    private setOnitem setOnitem;
+    private com.example.jiancheng.http_test.setOnitem setOnitem;
 
     public NewsAdapter(List<Item> items) {
         this.items = items;
@@ -34,7 +38,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> im
         holder.date_item.setText(items.get(position).getDate());
         holder.title_item.setText(items.get(position).getTitle());
         holder.unit_item.setText(items.get(position).getUnit());
-
+/*
         //防止 item 愛心重複
         holder.love.setImageResource(R.drawable.ic_favorite_border_black_24dp);
 
@@ -59,6 +63,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> im
 
             }
         });
+
+        */
         holder.itemView.setTag(position);
 
 

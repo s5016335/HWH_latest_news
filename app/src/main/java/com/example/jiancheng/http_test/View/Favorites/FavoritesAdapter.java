@@ -1,4 +1,4 @@
-package com.example.jiancheng.http_test;
+package com.example.jiancheng.http_test.View.Favorites;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,12 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.jiancheng.http_test.Data.Item;
+import com.example.jiancheng.http_test.R;
+import com.example.jiancheng.http_test.setOnitem;
+
 import java.util.List;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> implements View.OnClickListener {
 
     private List<Item> items;
-    private  setOnitem setOnitem;
+    private com.example.jiancheng.http_test.setOnitem setOnitem;
 
     public FavoritesAdapter(List<Item> items) {
         this.items = items;
