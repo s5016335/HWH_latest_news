@@ -5,34 +5,25 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.jiancheng.http_test.Data.Item;
 import com.example.jiancheng.http_test.R;
 import com.example.jiancheng.http_test.View.Favorites.FavoritesList;
+import com.example.jiancheng.http_test.setOnItemClick;
+import com.example.jiancheng.http_test.webview;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements NewsContract.View{
 
     List<Item> items=new  ArrayList<Item>();
     RecyclerView recycler;
-    NewsAdapter newsAdapter ;
+    NewsAdapter newsAdapter = new NewsAdapter();
     NewsContract.Presenter mpresenter;
-
-    private OkHttpClient okHttpClient = new OkHttpClient();
-    private Request request ;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,28 +36,9 @@ public class MainActivity extends AppCompatActivity implements NewsContract.View
 
         new NewsPresenter(this).subscribe();
 
-        request = new Request.Builder()
-                .url("http://www.hwh.edu.tw/files/501-1000-1000-1.php?Lang=zh-tw")
-                .build();
 
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
 
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-                // Strutils strutils = new Strutils(response.body().string());
-                //view.ShowNewList( strutils.getResultitem());
-
-                String  strResponse= response.body().string();
-                Log.d("Main",strResponse);
-            }
-        });
- /*
-        newsAdapter.setSetOnitem(new setOnitem() {
+        newsAdapter.setSetOnItemClick(new setOnItemClick() {
             @Override
             public void onclick(View view, int position) {
                 Intent it = new Intent(MainActivity.this, webview.class);
@@ -74,10 +46,7 @@ public class MainActivity extends AppCompatActivity implements NewsContract.View
                 startActivity(it);
             }
         });
-
-        */
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -105,7 +74,8 @@ public class MainActivity extends AppCompatActivity implements NewsContract.View
     @Override
     public void ShowNewList(List<Item> itemList) {
        // Log.d("2", String.valueOf(itemList));
-        newsAdapter = new NewsAdapter(itemList);
+        items=itemList;
+        newsAdapter.setItems(itemList);
         recycler.setAdapter(newsAdapter);
     }
 }

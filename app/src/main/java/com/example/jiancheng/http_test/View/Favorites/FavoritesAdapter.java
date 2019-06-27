@@ -8,14 +8,14 @@ import android.widget.TextView;
 
 import com.example.jiancheng.http_test.Data.Item;
 import com.example.jiancheng.http_test.R;
-import com.example.jiancheng.http_test.setOnitem;
+import com.example.jiancheng.http_test.setOnItemClick;
 
 import java.util.List;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> implements View.OnClickListener {
 
     private List<Item> items;
-    private com.example.jiancheng.http_test.setOnitem setOnitem;
+    private setOnItemClick setOnItemClick;
 
     public FavoritesAdapter(List<Item> items) {
         this.items = items;
@@ -43,14 +43,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         return items.size();
     }
 
-    void setSetOnitem(setOnitem setOnitem){
-        this.setOnitem=setOnitem;
+    void setSetOnItemClick(setOnItemClick setOnItemClick){
+        this.setOnItemClick = setOnItemClick;
     }
 
     @Override
     public void onClick(View v) {
 
-        setOnitem.onclick(v,(int)v.getTag());
+        setOnItemClick.onclick(v,(int)v.getTag());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

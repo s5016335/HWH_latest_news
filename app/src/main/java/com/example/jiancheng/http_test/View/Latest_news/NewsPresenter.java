@@ -2,19 +2,21 @@ package com.example.jiancheng.http_test.View.Latest_news;
 
 import android.util.Log;
 
-import java.io.IOException;
+import com.example.jiancheng.http_test.Data.Item;
+import com.example.jiancheng.http_test.Data.RetrofitManage;
+import com.example.jiancheng.http_test.Data.WebApi;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NewsPresenter implements NewsContract.Presenter {
-
     private NewsContract.View view;
-    private OkHttpClient okHttpClient = new OkHttpClient();
-    private Request request ;
+    //private OkHttpClient okHttpClient = new OkHttpClient();
+    //private Request request ;
+    WebApi webApi = RetrofitManage.getWebApi();
 
     public NewsPresenter(NewsContract.View view) {
         this.view = view;
@@ -27,31 +29,24 @@ public class NewsPresenter implements NewsContract.Presenter {
         loadNews();
     }
 
-
     @Override
     public void loadNews() {
 
-        request = new Request.Builder()
-                .url(" https://www.gamer.com.tw/")
-                .build();
+       webApi.getNews().enqueue(new Callback<List<Item>>() {
+           @Override
+           public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+               view.ShowNewList(response.body());
+               Log.d("Main","ff"+response.body());
+           }
 
-
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
+           @Override
+           public void onFailure(Call<List<Item>> call, Throwable t) {
+               Log.d("Main","ff"+t.toString());
+           }
+       });
 
                // Strutils strutils = new Strutils(response.body().string());
                 //view.ShowNewList( strutils.getResultitem());
-
-                String  strResponse= response.body().string();
-                Log.d("Main",response.message());
-            }
-        });
 
     }
 
@@ -61,4 +56,6 @@ public class NewsPresenter implements NewsContract.Presenter {
     public void unsubscribe() {
 
     }
+
+
 }

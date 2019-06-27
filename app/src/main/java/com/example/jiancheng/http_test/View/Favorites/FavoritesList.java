@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.example.jiancheng.http_test.Data.Item;
 import com.example.jiancheng.http_test.R;
-import com.example.jiancheng.http_test.setOnitem;
+import com.example.jiancheng.http_test.setOnItemClick;
 import com.example.jiancheng.http_test.webview;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class FavoritesList extends AppCompatActivity {
 
         adapter=new FavoritesAdapter(items);
 
-        adapter.setSetOnitem(new setOnitem() {
+        adapter.setSetOnItemClick(new setOnItemClick() {
             @Override
             public void onclick(View view, int position) {
                 Intent it = new Intent(FavoritesList.this, webview.class);
